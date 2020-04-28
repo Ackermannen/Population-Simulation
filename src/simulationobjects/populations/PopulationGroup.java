@@ -15,7 +15,7 @@ public abstract class PopulationGroup implements Group {
     private Location location;
     private HashMap<ResourceType, Float> needs;
 
-    public PopulationGroup(int size, Location location) {
+    public PopulationGroup(float size, Location location) {
         this.size = size;
         this.location = location;
         needs = new HashMap<>();
@@ -24,18 +24,21 @@ public abstract class PopulationGroup implements Group {
     @Override
     public float add(float amount) {
         size = size + (int) amount;
+        if(size < 0) size = 0;
         return size;
     }
 
     @Override
     public float multiply(float amount) {
         size = size * (int) amount;
+        if(size < 0) size = 0;
         return size;
     }
 
     @Override
     public float setQuantity(float amount) {
         size = (int) amount;
+        if(size < 0) size = 0;
         return size;
     }
 
@@ -45,7 +48,12 @@ public abstract class PopulationGroup implements Group {
     }
 
     protected void setNeed(ResourceType type, float cycleQuantity) {
+        if(cycleQuantity < 0) cycleQuantity = 0;
         needs.put(type, cycleQuantity);
+    }
+
+    public HashMap<ResourceType, Float> getNeeds() {
+        return needs;
     }
 
     /**
@@ -73,7 +81,7 @@ public abstract class PopulationGroup implements Group {
                 if (surplus > 0) {
                     results.put(currentSource.getResource(), 1f);
                 } else {
-                    results.put(currentSource.getResource(), need / supply);
+                    results.put(currentSource.getResource(), supply / need);
                 }
             }
         }
