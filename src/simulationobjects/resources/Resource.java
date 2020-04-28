@@ -1,20 +1,24 @@
 package simulationobjects.resources;
 
 import simulationobjects.location.Location;
+import simulationobjects.resources.resourcetypes.ResourceTypes;
 
 import java.util.Objects;
 
+/**
+ * Identifier for a resource group
+ */
 public class Resource {
 
-    private ResourceType type;
+    private ResourceTypes type;
     private Location location;
 
-    public Resource(ResourceType type, Location location) {
+    public Resource(ResourceTypes type, Location location) {
         this.type = type;
         this.location = location;
     }
 
-    public ResourceType getType() {
+    public ResourceTypes getType() {
         return type;
     }
 

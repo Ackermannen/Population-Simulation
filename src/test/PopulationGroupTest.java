@@ -5,10 +5,9 @@ import org.junit.Assert;
 
 import simulationobjects.location.Location;
 import simulationobjects.populations.PopulationGroup;
-import simulationobjects.resources.FoodGroup;
 import simulationobjects.resources.Resource;
 import simulationobjects.resources.ResourceGroup;
-import simulationobjects.resources.ResourceType;
+import simulationobjects.resources.resourcetypes.ResourceTypes;
 
 import java.util.HashMap;
 
@@ -21,7 +20,7 @@ public class PopulationGroupTest {
 
         }
 
-        public void addNeed(ResourceType need, float quantity) {
+        public void addNeed(ResourceTypes need, float quantity) {
             super.setNeed(need, quantity);
         }
     }
@@ -32,9 +31,9 @@ public class PopulationGroupTest {
 
         TestPopGroup popGroup = new TestPopGroup(100, location);
 
-        popGroup.addNeed(ResourceType.FRUIT, 1.2f);
+        popGroup.addNeed(ResourceTypes.FRUIT, 1.2f);
 
-        Assert.assertEquals(1.2f, popGroup.getNeeds().get(ResourceType.FRUIT), 0.0f);
+        Assert.assertEquals(1.2f, popGroup.getNeeds().get(ResourceTypes.FRUIT), 0.0f);
     }
 
     @Test
@@ -43,9 +42,9 @@ public class PopulationGroupTest {
 
         TestPopGroup popGroup = new TestPopGroup(100, location);
 
-        popGroup.addNeed(ResourceType.FRUIT, 1.2f);
+        popGroup.addNeed(ResourceTypes.FRUIT, 1.2f);
 
-        Assert.assertNull(popGroup.getNeeds().get(ResourceType.GRAIN));
+        Assert.assertNull(popGroup.getNeeds().get(ResourceTypes.GRAIN));
     }
 
     @Test
@@ -139,10 +138,10 @@ public class PopulationGroupTest {
 
         TestPopGroup popGroup = new TestPopGroup(100, popL);
 
-        popGroup.addNeed(ResourceType.GRAIN, 0.1f);
+        popGroup.addNeed(ResourceTypes.GRAIN, 0.1f);
 
-        FoodGroup resources = new FoodGroup(100,ResourceType.GRAIN, resL);
-        Resource resKey = new Resource(ResourceType.GRAIN, resL);
+        ResourceGroup resources = new ResourceGroup(100);
+        Resource resKey = new Resource(ResourceTypes.GRAIN, resL);
         HashMap<Resource, ResourceGroup> map = new HashMap<>();
         map.put(resKey, resources);
 
@@ -160,10 +159,10 @@ public class PopulationGroupTest {
 
         TestPopGroup popGroup = new TestPopGroup(100, popL);
 
-        popGroup.addNeed(ResourceType.GRAIN, 0.1f);
+        popGroup.addNeed(ResourceTypes.GRAIN, 0.1f);
 
-        FoodGroup resources = new FoodGroup(100,ResourceType.GRAIN, resL);
-        Resource resKey = new Resource(ResourceType.GRAIN, resL);
+        ResourceGroup resources = new ResourceGroup(100);
+        Resource resKey = new Resource(ResourceTypes.GRAIN, resL);
         HashMap<Resource, ResourceGroup> map = new HashMap<>();
         map.put(resKey, resources);
 
@@ -181,15 +180,15 @@ public class PopulationGroupTest {
 
         TestPopGroup popGroup = new TestPopGroup(100, popL);
 
-        popGroup.addNeed(ResourceType.GRAIN, 0.1f);
+        popGroup.addNeed(ResourceTypes.GRAIN, 0.1f);
 
-        FoodGroup resources = new FoodGroup(100,ResourceType.GRAIN, resL);
-        Resource resKey = new Resource(ResourceType.GRAIN, resL);
+        ResourceGroup resources = new ResourceGroup(100);
+        Resource resKey = new Resource(ResourceTypes.GRAIN, resL);
         HashMap<Resource, ResourceGroup> map = new HashMap<>();
         map.put(resKey, resources);
 
 
-        float satisfaction = popGroup.consume(map).get(ResourceType.GRAIN);
+        float satisfaction = popGroup.consume(map).get(ResourceTypes.GRAIN);
 
         Assert.assertEquals(1, satisfaction, 0.0f);
     }
@@ -202,15 +201,15 @@ public class PopulationGroupTest {
 
         TestPopGroup popGroup = new TestPopGroup(100, popL);
 
-        popGroup.addNeed(ResourceType.GRAIN, 1f);
+        popGroup.addNeed(ResourceTypes.GRAIN, 1f);
 
-        FoodGroup resources = new FoodGroup(50,ResourceType.GRAIN, resL);
-        Resource resKey = new Resource(ResourceType.GRAIN, resL);
+        ResourceGroup resources = new ResourceGroup(50);
+        Resource resKey = new Resource(ResourceTypes.GRAIN, resL);
         HashMap<Resource, ResourceGroup> map = new HashMap<>();
         map.put(resKey, resources);
 
 
-        float satisfaction = popGroup.consume(map).get(ResourceType.GRAIN);
+        float satisfaction = popGroup.consume(map).get(ResourceTypes.GRAIN);
 
         Assert.assertEquals(0.5f, satisfaction, 0.0f);
     }
@@ -223,15 +222,15 @@ public class PopulationGroupTest {
 
         TestPopGroup popGroup = new TestPopGroup(100, popL);
 
-        popGroup.addNeed(ResourceType.GRAIN, 1f);
+        popGroup.addNeed(ResourceTypes.GRAIN, 1f);
 
-        FoodGroup resources = new FoodGroup(0,ResourceType.GRAIN, resL);
-        Resource resKey = new Resource(ResourceType.GRAIN, resL);
+        ResourceGroup resources = new ResourceGroup(0);
+        Resource resKey = new Resource(ResourceTypes.GRAIN, resL);
         HashMap<Resource, ResourceGroup> map = new HashMap<>();
         map.put(resKey, resources);
 
 
-        float satisfaction = popGroup.consume(map).get(ResourceType.GRAIN);
+        float satisfaction = popGroup.consume(map).get(ResourceTypes.GRAIN);
 
         Assert.assertEquals(0f, satisfaction, 0.0f);
     }
