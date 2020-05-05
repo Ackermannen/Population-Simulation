@@ -22,6 +22,8 @@ public abstract class PopulationGroup implements Group {
         this.size = size;
         this.location = location;
         needs = new HashMap<>();
+        productionNeeds = new HashMap<>();
+        productionCapability = new HashMap<>();
     }
 
     @Override
@@ -72,7 +74,7 @@ public abstract class PopulationGroup implements Group {
 
     protected void setProductionCapability(ResourceTypes type, float cycleQuantity) {
         if(cycleQuantity < 0) cycleQuantity = 0;
-        needs.put(type, cycleQuantity);
+        productionCapability.put(type, cycleQuantity);
     }
 
     public HashMap<ResourceTypes, Float> getNeeds() {

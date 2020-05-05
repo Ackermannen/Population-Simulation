@@ -16,7 +16,7 @@ public class AverageGroupTest {
     @Test
     public void averageGroupShouldConsumeResources() {
         Location location = new Location(0,0);
-        AverageGroup group = new AverageGroup(100, location);
+        AverageGroup group = new AverageGroup(100, location, ResourceTypes.CLOTHING);
 
         Resource resourceMeat = new Resource(ResourceTypes.MEAT, location);
         Resource resourceFruit = new Resource(ResourceTypes.FRUIT, location);
@@ -37,7 +37,7 @@ public class AverageGroupTest {
     @Test
     public void averageGroupShouldGetSatisfactionFromConsuming() {
         Location location = new Location(0,0);
-        AverageGroup group = new AverageGroup(100, location);
+        AverageGroup group = new AverageGroup(100, location, ResourceTypes.CLOTHING);
 
         Resource resourceMeat = new Resource(ResourceTypes.MEAT, location);
         Resource resourceFruit = new Resource(ResourceTypes.FRUIT, location);
@@ -58,7 +58,7 @@ public class AverageGroupTest {
     @Test
     public void averageGroupShouldLackSatisfactionWithoutResource() {
         Location location = new Location(0,0);
-        AverageGroup group = new AverageGroup(100, location);
+        AverageGroup group = new AverageGroup(100, location, ResourceTypes.CLOTHING);
 
         Resource resourceMeat = new Resource(ResourceTypes.MEAT, location);
         Resource resourceGrain = new Resource(ResourceTypes.GRAIN, location);
@@ -67,7 +67,7 @@ public class AverageGroupTest {
         resources.put(resourceMeat, new ResourceGroup(200));
         resources.put(resourceGrain, new ResourceGroup(200));
 
-        HashMap<ResourceTypes, Float> satisfaction = group.consume(resources, group.getNeeds());
+        HashMap<ResourceTypes, Float> satisfaction = group.consume(resources);
 
 
         for (Map.Entry<ResourceTypes, Float> entry : satisfaction.entrySet()) {

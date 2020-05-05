@@ -8,7 +8,7 @@ import simulationobjects.resources.resourcetypes.ResourceTypes;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AverageGroup extends PopulationGroup implements ConsumerProducer {
+public class AverageGroup extends PopulationGroup implements Consumer, Producer {
 
     public AverageGroup(int size, Location location, ResourceTypes productionType) {
         super(size, location);
