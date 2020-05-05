@@ -41,12 +41,28 @@ public class AverageGroup extends PopulationGroup implements Consumer, Producer 
         //Consume production resources
         HashMap<ResourceTypes, Float> resourceSatisfaction = super.consume(resources, super.getProductionNeeds());
 
-
-        //Calculate Production capability by taking satisfaction (%) * Production Capability
-        HashMap<ResourceTypes, Float> productionCapability = super.getProductionCapability();
         HashMap<ResourceTypes, Float> adjustedCapability = new HashMap<>();
-        for (Map.Entry<ResourceTypes, Float> entry: resourceSatisfaction.entrySet()) {
-            adjustedCapability.put(entry.getKey(), entry.getValue()*productionCapability.get(entry.getKey()));
+
+
+
+        //For every production this pop does
+        for (Map.Entry<ResourceTypes, Float> capability: super.getProductionCapability().entrySet()) {
+            //Get demands for this type of resource
+            HashMap<ResourceTypes, Float> productionDemands = super.getProductionDemands(capability.getKey());
+
+            //Go through all demands, look at their satisfaction, take lowest satisfaction
+            float lowestSatisfaction = 1.0f;
+
+            for (Map.Entry<ResourceTypes, Float> demand: productionDemands.entrySet()) {
+                float satisfaction = resourceSatisfaction.get(demand.getKey());
+                if(satisfaction < lowestSatisfaction) {
+                    lowestSatisfaction = satisfaction;
+                }
+            }
+
+            adjustedCapability.put(capability.getKey(), lowestSatisfaction*capability.getValue());
+
+
         }
 
 

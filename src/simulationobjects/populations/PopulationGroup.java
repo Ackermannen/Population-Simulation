@@ -143,7 +143,7 @@ public abstract class PopulationGroup implements Group {
             if(group != null) {
                 float productionAmount = entry.getValue() * size;
                 group.add(productionAmount);
-                results.put(currentResource.getType(), 1f);
+                results.put(currentResource.getType(), productionAmount);
             }
         }
         return results;

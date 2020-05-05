@@ -78,4 +78,28 @@ public class AverageGroupTest {
         }
         Assert.fail();
     }
+
+    @Test
+    public void averageGroupShouldProduceResources() {
+        Location location = new Location(0,0);
+        AverageGroup group = new AverageGroup(100, location, ResourceTypes.CLOTHING);
+
+        Resource resourceWool = new Resource(ResourceTypes.WOOL, location);
+        Resource resourceClothes = new Resource(ResourceTypes.CLOTHING, location);
+
+        HashMap<Resource, ResourceGroup> resources = new HashMap<>();
+        resources.put(resourceWool, new ResourceGroup(1000));
+        resources.put(resourceClothes, new ResourceGroup(0));
+
+        HashMap<ResourceTypes, Float> result = group.produce(resources);
+
+
+        for (Map.Entry<ResourceTypes, Float> entry : result.entrySet()) {
+            if(entry.getKey() == ResourceTypes.CLOTHING) {
+                Assert.assertEquals(100, entry.getValue(), 0.0f);
+                return;
+            }
+        }
+        Assert.fail();
+    }
 }
